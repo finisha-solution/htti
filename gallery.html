@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery - Hylinks Technical Training Institute</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome 5 (free) for icons -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f0f5fb 0%, #e6f0f9 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* Demo wrapper */
+    .demo-wrapper {
+      width: 100%;
+      max-width: 1400px;
+    }
+
+    /* Back button */
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .back-btn a {
+      background: #003153;
+      color: white;
+      padding: 12px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 2px solid #f4b532;
+      transition: all 0.3s;
+    }
+
+    .back-btn a:hover {
+      background: #f4b532;
+      color: #003153;
+      transform: translateX(-5px);
+    }
+
+    /* ===== GALLERY SECTION - ELEGANT DESIGN ===== */
+    .gallery-section {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 50px;
+      padding: clamp(1.5rem, 5vw, 3rem);
+      box-shadow: 0 30px 60px -20px rgba(0, 49, 83, 0.4);
+      border: 1px solid rgba(244, 181, 50, 0.2);
+    }
+
+    .gallery-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .header-title {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .header-icon {
+      width: clamp(60px, 8vw, 80px);
+      height: clamp(60px, 8vw, 80px);
+      background: linear-gradient(135deg, #003153, #1a4b6d);
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(28px, 4vw, 36px);
+      color: #f4b532;
+      box-shadow: 0 15px 30px rgba(0, 49, 83, 0.3);
+    }
+
+    .header-title h2 {
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      font-weight: 700;
+      color: #003153;
+      letter-spacing: -0.5px;
+      margin: 0;
+    }
+
+    .header-badge {
+      background: #f4b532;
+      color: #003153;
+      padding: 12px 30px;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 20px rgba(244, 181, 50, 0.3);
+    }
+
+    /* Gallery filters */
+    .gallery-filters {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: white;
+      border: 2px solid #e0e9f0;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #003153;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .filter-btn i {
+      color: #f4b532;
+    }
+
+    .filter-btn:hover {
+      border-color: #f4b532;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(244, 181, 50, 0.2);
+    }
+
+    .filter-btn.active {
+      background: #003153;
+      color: white;
+      border-color: #f4b532;
+    }
+
+    .filter-btn.active i {
+      color: #f4b532;
+    }
+
+    /* Gallery grid - Bootstrap override */
+    .gallery-grid {
+      margin-bottom: 2rem;
+    }
+
+    /* Gallery item */
+    .gallery-item {
+      position: relative;
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px -10px rgba(0, 49, 83, 0.2);
+      cursor: pointer;
+      transition: all 0.4s ease;
+      aspect-ratio: 1/1;
+      width: 100%;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 40px -15px rgba(244, 181, 50, 0.4);
+    }
+
+    /* Image placeholder with gradient and icon */
+    .gallery-image {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(145deg, #003153, #1a4b6d);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    /* Different backgrounds for variety */
+    .gallery-item:nth-child(1) .gallery-image { background: linear-gradient(145deg, #003153, #2c5a7a); }
+    .gallery-item:nth-child(2) .gallery-image { background: linear-gradient(145deg, #1a4b6d, #003153); }
+    .gallery-item:nth-child(3) .gallery-image { background: linear-gradient(145deg, #f4b532, #d99f2a); }
+    .gallery-item:nth-child(4) .gallery-image { background: linear-gradient(145deg, #2c5a7a, #003153); }
+    .gallery-item:nth-child(5) .gallery-image { background: linear-gradient(145deg, #003153, #4a7a9a); }
+    .gallery-item:nth-child(6) .gallery-image { background: linear-gradient(145deg, #f4b532, #b87e1f); }
+    .gallery-item:nth-child(7) .gallery-image { background: linear-gradient(145deg, #1a4b6d, #2c5a7a); }
+    .gallery-item:nth-child(8) .gallery-image { background: linear-gradient(145deg, #003153, #1a4b6d); }
+
+    .gallery-image i {
+      font-size: clamp(2.5rem, 6vw, 3.5rem);
+      color: rgba(244, 181, 50, 0.8);
+      margin-bottom: 15px;
+      transition: 0.3s;
+    }
+
+    .gallery-item:hover .gallery-image i {
+      transform: scale(1.1);
+      color: #f4b532;
+    }
+
+    .gallery-image span {
+      font-size: clamp(0.9rem, 3vw, 1.2rem);
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 8px 20px;
+      border-radius: 50px;
+      backdrop-filter: blur(5px);
+    }
+
+    /* Overlay on hover */
+    .gallery-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to top, rgba(0, 49, 83, 0.95), rgba(0, 49, 83, 0.7));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: all 0.3s ease;
+      padding: 20px;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .overlay-content {
+      text-align: center;
+      color: white;
+      transform: translateY(20px);
+      transition: 0.3s;
+    }
+
+    .gallery-item:hover .overlay-content {
+      transform: translateY(0);
+    }
+
+    .overlay-content h4 {
+      color: #f4b532;
+      font-size: clamp(1.1rem, 3vw, 1.3rem);
+      margin-bottom: 8px;
+    }
+
+    .overlay-content p {
+      font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+      opacity: 0.9;
+      margin-bottom: 15px;
+    }
+
+    .overlay-icon {
+      width: 45px;
+      height: 45px;
+      background: #f4b532;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      color: #003153;
+      font-size: 1.2rem;
+    }
+
+    /* Lightbox modal */
+    .lightbox-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 49, 83, 0.98);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .lightbox-content {
+      max-width: 800px;
+      width: 100%;
+      background: white;
+      border-radius: 50px;
+      padding: clamp(1.5rem, 5vw, 3rem);
+      text-align: center;
+      position: relative;
+      border: 5px solid #f4b532;
+    }
+
+    .lightbox-icon {
+      width: clamp(80px, 15vw, 120px);
+      height: clamp(80px, 15vw, 120px);
+      background: linear-gradient(135deg, #003153, #1a4b6d);
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(30px, 6vw, 50px);
+      color: #f4b532;
+      margin: 0 auto 25px;
+    }
+
+    .lightbox-content h3 {
+      color: #003153;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      margin-bottom: 15px;
+    }
+
+    .lightbox-content p {
+      color: #666;
+      font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+      margin-bottom: 25px;
+    }
+
+    .close-lightbox {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      background: #f4b532;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #003153;
+      font-size: 24px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .close-lightbox:hover {
+      transform: rotate(90deg);
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      padding: 10px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    /* Responsive breakpoints */
+    @media (max-width: 768px) {
+      .gallery-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .filter-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+      
+      .close-lightbox {
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      body {
+        padding: 15px;
+      }
+      
+      .filter-btn {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .nav-buttons {
+        flex-direction: column;
+      }
+      
+      .nav-btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-wrapper">
+    <!-- Back Button -->
+    <div class="back-btn">
+      <a href="index.html">
+        <i class="fas fa-arrow-left"></i> BACK TO HOME
+      </a>
+    </div>
+
+    <!-- GALLERY SECTION -->
+    <section class="gallery-section">
+      <!-- Header -->
+      <div class="gallery-header">
+        <div class="header-title">
+          <div class="header-icon">
+            <i class="fas fa-images"></i>
+          </div>
+          <h2>Campus Gallery</h2>
+        </div>
+        <div class="header-badge">
+          <i class="fas fa-camera"></i>
+          <span>36+ Photos</span>
+        </div>
+      </div>
+
+      <!-- Filter buttons -->
+      <div class="gallery-filters">
+        <button class="filter-btn active">
+          <i class="fas fa-th-large"></i> All
+        </button>
+        <button class="filter-btn">
+          <i class="fas fa-building"></i> Campus
+        </button>
+        <button class="filter-btn">
+          <i class="fas fa-chalkboard-teacher"></i> Classes
+        </button>
+        <button class="filter-btn">
+          <i class="fas fa-users"></i> Events
+        </button>
+        <button class="filter-btn">
+          <i class="fas fa-graduation-cap"></i> Graduation
+        </button>
+      </div>
+
+      <!-- Gallery Grid - Bootstrap Grid -->
+      <div class="gallery-grid">
+        <div class="row g-4">
+          <!-- Item 1 - Campus -->
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="gallery-item" onclick="openLightbox('campus1')">
+              <div class="gallery-image">
+                <i class="fas fa-university"></i>
+                <span>Campus</span>
+              </div>
+              <div class="gallery-overlay">
+                <div class="overlay-content">
+                  <h4>Main Campus</h4>
+                  <p>KN Business Centre</p>
+                  <div class="overlay-icon">
+                    <i class="fas fa-search-plus"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 2 - Library -->
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="gallery-item" onclick="openLightbox('library')">
+              <div class="gallery-image">
+                <i class="fas fa-book"></i>
+                <span>Library</span>
+              </div>
+              <div class="gallery-overlay">
+                <div class="overlay-content">
+                  <h4>Resource Center</h4>
+                  <p>Modern library facilities</p>
+                  <div class="overlay-icon">
+                    <i class="fas fa-search-plus"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 3 - Computer Lab -->
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="gallery-item" onclick="openLightbox('computerlab')">
+              <div class="gallery-image">
+                <i class="fas fa-laptop"></i>
+                <span>Computer Lab</span>
+              </div>
+              <div class="gallery-overlay">
+                <div class="overlay-content">
+                  <h4>ICT Lab</h4>
+                  <p>Modern computers & internet</p>
+                  <div class="overlay-icon">
+                    <i class="fas fa-search-plus"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 4 - Classroom -->
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="gallery-item" onclick="openLightbox('classroom')">
+              <div class="gallery-image">
+                <i class="fas fa-chalkboard"></i>
+                <span>Classroom</span>
+              </div>
+              <div class="gallery-overlay">
+                <div class="overlay-content">
+                  <h4>Modern Classrooms</h4>
+                  <p>Conducive learning environment</p>
+                  <div class="overlay-icon">
+                    <i class="fas fa-search-plus"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 5 - Graduation -->
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="gallery-item" onclick="openLightbox('graduation')">
+              <div class="gallery-image">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Graduation</span>
+              </div>
+              <div class="gallery-overlay">
+                <div class="overlay-content">
+                  <h4>1st Graduation</h4>
+                  <p>Class of 2024</p>
+                  <div class="overlay-icon">
+                    <i class="fas fa-search-plus"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 6 - Students -->
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="gallery-item" onclick="openLightbox('students')">
+              <div class="gallery-image">
+                <i class="fas fa-users"></i>
+                <span>Students</span>
+              </div>
+              <div class="gallery-overlay">
+                <div class="overlay-content">
+                  <h4>Student Life</h4>
+                  <p>Group discussion & activities</p>
+                  <div class="overlay-icon">
+                    <i class="fas fa-search-plus"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 7 - Workshop -->
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="gallery-item" onclick="openLightbox('workshop')">
+              <div class="gallery-image">
+                <i class="fas fa-tools"></i>
+                <span>Workshop</span>
+              </div>
+              <div class="gallery-overlay">
+                <div class="overlay-content">
+                  <h4>Practical Training</h4>
+                  <p>Hands-on experience</p>
+                  <div class="overlay-icon">
+                    <i class="fas fa-search-plus"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 8 - Event -->
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="gallery-item" onclick="openLightbox('event')">
+              <div class="gallery-image">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Events</span>
+              </div>
+              <div class="gallery-overlay">
+                <div class="overlay-content">
+                  <h4>Career Fair 2025</h4>
+                  <p>Industry partners</p>
+                  <div class="overlay-icon">
+                    <i class="fas fa-search-plus"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox-modal" id="lightbox">
+    <div class="lightbox-content">
+      <div class="close-lightbox" onclick="closeLightbox()">
+        <i class="fas fa-times"></i>
+      </div>
+      <div class="lightbox-icon" id="lightbox-icon">
+        <i class="fas fa-image"></i>
+      </div>
+      <h3 id="lightbox-title">Campus Gallery</h3>
+      <p id="lightbox-description">Hylinks Technical Training Institute - Excellence in Training</p>
+      <div class="nav-buttons">
+        <span class="nav-btn" style="background: #f4b532; color: #003153;">
+          <i class="fas fa-chevron-left"></i> Previous
+        </span>
+        <span class="nav-btn" style="background: #003153; color: white;">
+          Next <i class="fas fa-chevron-right"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    function openLightbox(item) {
+      const lightbox = document.getElementById('lightbox');
+      const icon = document.getElementById('lightbox-icon');
+      const title = document.getElementById('lightbox-title');
+      const desc = document.getElementById('lightbox-description');
+      
+      // Change content based on item clicked
+      switch(item) {
+        case 'campus1':
+          icon.innerHTML = '<i class="fas fa-university"></i>';
+          title.innerHTML = 'Main Campus';
+          desc.innerHTML = 'K.N Business Centre, 1st Floor - Modern learning environment';
+          break;
+        case 'library':
+          icon.innerHTML = '<i class="fas fa-book"></i>';
+          title.innerHTML = 'Resource Center';
+          desc.innerHTML = 'Well-stocked library with digital resources';
+          break;
+        case 'computerlab':
+          icon.innerHTML = '<i class="fas fa-laptop"></i>';
+          title.innerHTML = 'ICT Laboratory';
+          desc.innerHTML = 'Modern computers with high-speed internet';
+          break;
+        case 'classroom':
+          icon.innerHTML = '<i class="fas fa-chalkboard"></i>';
+          title.innerHTML = 'Modern Classrooms';
+          desc.innerHTML = 'Spacious, well-lit rooms with modern teaching aids';
+          break;
+        case 'graduation':
+          icon.innerHTML = '<i class="fas fa-graduation-cap"></i>';
+          title.innerHTML = '1st Graduation Ceremony';
+          desc.innerHTML = 'Class of 2024 - Celebrating success';
+          break;
+        case 'students':
+          icon.innerHTML = '<i class="fas fa-users"></i>';
+          title.innerHTML = 'Student Life';
+          desc.innerHTML = 'Collaborative learning and group discussions';
+          break;
+        case 'workshop':
+          icon.innerHTML = '<i class="fas fa-tools"></i>';
+          title.innerHTML = 'Practical Workshops';
+          desc.innerHTML = 'Hands-on training in modern facilities';
+          break;
+        case 'event':
+          icon.innerHTML = '<i class="fas fa-calendar-alt"></i>';
+          title.innerHTML = 'Career Fair 2025';
+          desc.innerHTML = 'Connecting students with industry employers';
+          break;
+        default:
+          icon.innerHTML = '<i class="fas fa-images"></i>';
+          title.innerHTML = 'Hylinks Technical Training Institute Gallery';
+          desc.innerHTML = 'Browse all 36+ photos of campus, events, and student life';
+      }
+      
+      lightbox.style.display = 'flex';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
+    }
+
+    // Close lightbox when clicking outside
+    window.onclick = function(event) {
+      const lightbox = document.getElementById('lightbox');
+      if (event.target == lightbox) {
+        lightbox.style.display = 'none';
+      }
+    }
+
+    // Filter buttons functionality
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+      
+      });
+    });
+  </script>
+</body>
+</html>

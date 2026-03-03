@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premier Shortcourses - Hylinks Technical Training Institute</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome 5 (free) for icons -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #667fa0 0%, #4a5f7a 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* Background pattern for demo */
+    .demo-wrapper {
+      width: 100%;
+      max-width: 1300px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(2px);
+      border-radius: 50px;
+      padding: 20px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+    }
+
+    /* Back button */
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .back-btn a {
+      background: #003153;
+      color: white;
+      padding: 12px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 2px solid #f4b532;
+      transition: all 0.3s;
+    }
+
+    .back-btn a:hover {
+      background: #f4b532;
+      color: #003153;
+      transform: translateX(-5px);
+    }
+
+    /* ===== PREMIER SHORTCOURSES - ELEGANT DESIGN ===== */
+    .premier-section {
+      background: white;
+      border-radius: 40px;
+      padding: 2.5rem;
+      box-shadow: 0 30px 50px -20px rgba(0, 49, 83, 0.4);
+      border: 1px solid rgba(244, 181, 50, 0.3);
+    }
+
+    .premier-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .premier-title-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .premier-icon-large {
+      width: clamp(60px, 8vw, 70px);
+      height: clamp(60px, 8vw, 70px);
+      background: linear-gradient(135deg, #f4b532, #f9d423);
+      border-radius: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(28px, 4vw, 32px);
+      color: #003153;
+      box-shadow: 0 10px 20px rgba(244, 181, 50, 0.3);
+    }
+
+    .premier-title-large {
+      font-size: clamp(1.8rem, 5vw, 2.2rem);
+      font-weight: 700;
+      color: #003153;
+      letter-spacing: -0.5px;
+    }
+
+    .premier-badge {
+      background: #003153;
+      color: #f4b532;
+      padding: 10px 25px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 5px 15px rgba(0, 49, 83, 0.3);
+    }
+
+    .premier-subtitle {
+      color: #666;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-left: 15px;
+      border-left: 4px solid #f4b532;
+    }
+
+    /* Bootstrap grid override for cards */
+    .premier-grid {
+      margin-top: 20px;
+    }
+
+    .premier-card {
+      background: #ffffff;
+      border-radius: 30px;
+      padding: 25px;
+      box-shadow: 0 15px 30px -10px rgba(0, 49, 83, 0.1);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid rgba(244, 181, 50, 0.1);
+      position: relative;
+      cursor: pointer;
+      height: 100%;
+    }
+
+    .premier-card:hover {
+      transform: translateY(-10px);
+      border-color: #f4b532;
+      box-shadow: 0 30px 40px -15px rgba(244, 181, 50, 0.4);
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 2;
+    }
+
+    .premier-icon {
+      width: clamp(60px, 8vw, 70px);
+      height: clamp(60px, 8vw, 70px);
+      background: linear-gradient(135deg, #003153, #1a4b6d);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(26px, 4vw, 30px);
+      color: #f4b532;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 20px rgba(0, 49, 83, 0.2);
+    }
+
+    .premier-title {
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+      font-weight: 700;
+      color: #003153;
+      margin-bottom: 10px;
+    }
+
+    .premier-meta {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 2px dashed rgba(244, 181, 50, 0.3);
+      flex-wrap: wrap;
+    }
+
+    .premier-meta span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #555;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .premier-meta i {
+      color: #f4b532;
+      font-size: 1.1rem;
+    }
+
+    .view-units {
+      color: #003153;
+      font-size: 0.95rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0.7;
+      transition: 0.3s;
+    }
+
+    .view-units i {
+      color: #f4b532;
+      transition: 0.3s;
+    }
+
+    .premier-card:hover .view-units {
+      opacity: 1;
+    }
+
+    .premier-card:hover .view-units i {
+      transform: translateX(5px);
+    }
+
+    /* ELEGANT TOOLTIP DESIGN */
+    .units-tooltip {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      background: #003153;
+      color: white;
+      padding: 25px;
+      border-radius: 30px;
+      width: 90%;
+      max-width: 320px;
+      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 100;
+      border: 3px solid #f4b532;
+      pointer-events: none;
+    }
+
+    .premier-card:hover .units-tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .units-tooltip::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 15px 15px 0;
+      border-style: solid;
+      border-color: #f4b532 transparent transparent transparent;
+    }
+
+    .units-tooltip h4 {
+      color: #f4b532;
+      margin-bottom: 20px;
+      font-size: clamp(1.1rem, 3vw, 1.3rem);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 2px solid #f4b532;
+      padding-bottom: 12px;
+    }
+
+    .units-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .units-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.95rem;
+    }
+
+    .units-list li:last-child {
+      border-bottom: none;
+    }
+
+    .units-list li i {
+      color: #f4b532;
+      font-size: 0.9rem;
+    }
+
+    /* Decorative elements */
+    .premier-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle at top right, rgba(244, 181, 50, 0.1), transparent 70%);
+      border-radius: 0 30px 0 0;
+      pointer-events: none;
+    }
+
+    /* Mobile adjustments for tooltip */
+    @media (max-width: 768px) {
+      .units-tooltip {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.9);
+        width: 90%;
+        max-width: 300px;
+      }
+      
+      .premier-card:active .units-tooltip {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      
+      .premier-badge {
+        font-size: 0.9rem;
+        padding: 8px 20px;
+      }
+      
+      .premier-section {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .premier-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .premier-meta {
+        flex-direction: column;
+        gap: 8px;
+      }
+      
+      .demo-wrapper {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-wrapper">
+    <!-- Back Button -->
+    <div class="back-btn">
+      <a href="index1.html">
+        <i class="fas fa-arrow-left"></i> BACK TO HOME
+      </a>
+    </div>
+
+    <!-- PREMIER SHORTCOURSES SECTION - ELEGANT DESIGN -->
+    <section class="premier-section">
+      <!-- Header with large icon and title -->
+      <div class="premier-header">
+        <div class="premier-title-wrapper">
+          <div class="premier-icon-large">
+            <i class="fas fa-crown"></i>
+          </div>
+          <h1 class="premier-title-large">Premier Short Courses</h1>
+        </div>
+        <div class="premier-badge">
+          <i class="fas fa-eye"></i> Hover to see units
+        </div>
+      </div>
+
+      <!-- Subtitle with description -->
+      <div class="premier-subtitle">
+        <i class="fas fa-gem" style="color: #f4b532;"></i>
+        <span>Industry-recognized certification courses with comprehensive curriculum</span>
+      </div>
+
+      <!-- Grid of premier courses using Bootstrap grid -->
+      <div class="premier-grid">
+        <div class="row g-4">
+          <!-- Course 1: Advanced Computer Operations -->
+          <div class="col-md-6 col-lg-4">
+            <div class="premier-card">
+              <div class="card-inner">
+                <div class="premier-icon">
+                  <i class="fas fa-laptop"></i>
+                </div>
+                <h3 class="premier-title">Advanced Computer Operations & Applications</h3>
+                <div class="premier-meta">
+                  <span><i class="fas fa-clock"></i> 3 months</span>
+                  <span><i class="fas fa-tag"></i> KES 9,000</span>
+                </div>
+                <div class="view-units">
+                  <span>View course units</span>
+                  <i class="fas fa-arrow-right"></i>
+                </div>
+              </div>
+
+              <!-- Units tooltip on hover -->
+              <div class="units-tooltip">
+                <h4><i class="fas fa-book-open"></i> Units Covered</h4>
+                <ul class="units-list">
+                  <li><i class="fas fa-check-circle"></i> Basic Networking</li>
+                  <li><i class="fas fa-check-circle"></i> Basic Digital Marketing</li>
+                  <li><i class="fas fa-check-circle"></i> Computer Repair & Maintenance</li>
+                  <li><i class="fas fa-check-circle"></i> Basic Graphic Design</li>
+                  <li><i class="fas fa-check-circle"></i> IT Security</li>
+                  <li><i class="fas fa-check-circle"></i> Software Installation & Configuration</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Course 2: Graphic Design -->
+          <div class="col-md-6 col-lg-4">
+            <div class="premier-card">
+              <div class="card-inner">
+                <div class="premier-icon">
+                  <i class="fas fa-paint-brush"></i>
+                </div>
+                <h3 class="premier-title">Graphic Design</h3>
+                <div class="premier-meta">
+                  <span><i class="fas fa-clock"></i> 3 months</span>
+                  <span><i class="fas fa-tag"></i> KES 12,000</span>
+                </div>
+                <div class="view-units">
+                  <span>View course units</span>
+                  <i class="fas fa-arrow-right"></i>
+                </div>
+              </div>
+
+              <div class="units-tooltip">
+                <h4><i class="fas fa-book-open"></i> Units Covered</h4>
+                <ul class="units-list">
+                  <li><i class="fas fa-check-circle"></i> Adobe Photoshop</li>
+                  <li><i class="fas fa-check-circle"></i> Adobe Illustrator</li>
+                  <li><i class="fas fa-check-circle"></i> Typography Fundamentals</li>
+                  <li><i class="fas fa-check-circle"></i> Corel Draw</li>
+                  <li><i class="fas fa-check-circle"></i> UI/UX Basics</li>
+                  <li><i class="fas fa-check-circle"></i> InDesign</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Course 3: Web Development -->
+          <div class="col-md-6 col-lg-4">
+            <div class="premier-card">
+              <div class="card-inner">
+                <div class="premier-icon">
+                  <i class="fas fa-code"></i>
+                </div>
+                <h3 class="premier-title">Web Development</h3>
+                <div class="premier-meta">
+                  <span><i class="fas fa-clock"></i> 5 months</span>
+                  <span><i class="fas fa-tag"></i> KES 25,000</span>
+                </div>
+                <div class="view-units">
+                  <span>View course units</span>
+                  <i class="fas fa-arrow-right"></i>
+                </div>
+              </div>
+
+              <div class="units-tooltip">
+                <h4><i class="fas fa-book-open"></i> Units Covered</h4>
+                <ul class="units-list">
+                  <li><i class="fas fa-check-circle"></i> HTML5 & CSS3</li>
+                  <li><i class="fas fa-check-circle"></i> JavaScript Fundamentals</li>
+                  <li><i class="fas fa-check-circle"></i> React Basics</li>
+                  <li><i class="fas fa-check-circle"></i> Database Integration</li>
+                  <li><i class="fas fa-check-circle"></i> Responsive Design</li>
+                </ul>
+              </div>
+            </div>
+          </div>  
+        </div>
+      </div>
+
+      <!-- Additional Info -->
+      <div class="text-center mt-5">
+        <p class="text-muted">
+          <i class="fas fa-info-circle text-gold me-2"></i>
+          All short courses include certification upon completion. Registration ongoing.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+       
+
+      
+
+      <!-- Bottom decorative element -->
+      <div style="margin-top: 30px; text-align: center; opacity: 0.6;">
+        <i class="fas fa-chevron-down" style="color: #f4b532; font-size: 1.2rem;"></i>
+        <span style="color: #666; margin-left: 10px;">Hover over any course card to see detailed units</span>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
